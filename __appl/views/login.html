@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>JResto Cashier v1.0</title>
+  <link href="" rel="shortcut icon" type="image/x-icon">
+  <link rel="stylesheet" href="{$host}__assets/css/style-login.css" media="screen" type="text/css" />
+</head>
+<body>
+	<div class="login-card">
+		<center><h3 style='margin:0px !important;color:#737272;'>JResto Software</h3></center>
+		<br/>
+		<form name='frmLogin' action="{$host}index.php/login" method="post">
+			<input type="text" name="user" placeholder="Username">
+			<input type="password" name="pwd" placeholder="Password">
+			<input type="submit" id="login" class="login login-submit" value="Login">
+		</form>
+		<div class="login-help">
+			JResto v1.0 - Jingga Lintas Imaji
+		</div>
+		{if isset($error)}
+            <div style="text-align:center;margin-top:30px">
+				<span style="color:red;"><b><i>{$error}</i></b></span>
+			</div>
+		{/if}	
+	</div>
+</body>
+</html>

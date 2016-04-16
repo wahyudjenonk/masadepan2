@@ -1,0 +1,74 @@
+<div style='display:block;margin-bottom:20px;'>
+	{if $status_meja eq 'N'}
+		<span class='boxkecil' style='margin-top:20px;'>MEJA NO. {$nomor_meja}</span>
+	{/if}
+	
+	<a style='float:right;margin-bottom:10px;' id='kembali_ke_menu' href='{$host}'>Kembali Ke Menu</a>
+	&nbsp;
+	<a style='float:right;margin-bottom:10px;' id='kembali_ke_list_meja' href='{$host}'>Kembali Ke List Meja</a>
+</div>
+{if $status_meja eq 'Y'}
+	<div id='menu-utama' style='height:93% !important;'>
+		<br/>
+		<h3>Meja No. {$nomor_meja}, Masih Tersedia</h3>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<button class='tombol-menu-awal' href='javascript:void(0);' onClick="postAll('set_aktif_meja', 'mainContainer', '{$id_meja}');" >
+			<img src='{$host}__assets/images/yes.png'> Aktif
+		</button>
+		<button class='tombol-menu-awal' href='javascript:void(0);' onClick="postAll('set_tidak_aktif_meja', 'mainContainer', '{$id_meja}');" >
+			<img src='{$host}__assets/images/cancel.png'> Tidak Aktif
+		</button>
+	</div>
+{elseif $status_meja eq 'N'}
+	<table width='100%'>
+		<tr>
+			<td width='40%'>
+				{include file='tmp/grid.html' tipe_grid='list_pesanan_kasir' divnya='pes_kasir' tinggi_grid='(getClientHeight()-230)' tinggi_toolbar='30px' }
+			</td>
+			<td width='60%'>
+				{include file='tmp/grid.html' tipe_grid='list_produk_kasir' divnya='prod_kasir' tinggi_grid='(getClientHeight()-230)' tinggi_toolbar='30px' filter_kategori='true'}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table width='100%' style='font-weight:bold;'>
+					<tr>
+						<td width='29%'>Total Item</td>
+						<td width='2%'> : </td>
+						<td width='69%'> <span id='tot_item'></span> </td>
+					</tr>
+					<tr>
+						<td width='29%'>Total Harga</td>
+						<td width='2%'> : </td>
+						<td width='69%'> Rp. <span id='tot_harga'></span> </td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<button class='tombol-kasir' style='background:{$background}' href='javascript:void(0);' onClick="postAll();">
+					Print
+				</button>
+				&nbsp;
+				<button class='tombol-kasir' style='background:{$background}' href='javascript:void(0);' onClick="postAll();">
+					Bayar
+				</button>
+			</td>
+		</tr>
+	</table>
+{/if}
+
+<script>
+	$('#kembali_ke_menu').linkbutton({
+		iconCls: 'icon-undo'
+	});
+	$('#kembali_ke_list_meja').linkbutton({
+		iconCls: 'icon-undo'
+	});
+</script>
