@@ -4,7 +4,7 @@ class Login extends MY_Controller {
 	
 	function __construct(){
 		parent::__construct();
-		$this->load->library('encrypt');
+		$this->load->library(array('encrypt','lib'));
 	}
 	
 	public function index(){
@@ -49,5 +49,5 @@ class Login extends MY_Controller {
 		$this->session->sess_destroy();
 		header("Location: " . $this->host);
 	}
-
+	
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>JResto Cashier v1.0</title>
+  <link href="" rel="shortcut icon" type="image/x-icon">
+  <link rel="stylesheet" href="{$host}__assets/css/style-login.css" media="screen" type="text/css" />
+</head>
+<body>
+	<div class="login-card">
+		<center><h3 style='margin:0px !important;color:#737272;'>JResto Software</h3></center>
+		<br/>
+		<div class="login-help">
+			BIODATA RESTO TERDAFTAR
+		</div><br>
+		<form name='frmLogin' action="{$host}" method="post">
+		<label>Nama Gerai/Outlet</label>: {$data.nama_outlet|default:'-'}<br>
+		<label>Alamat</label>: {$data.alamat|default:'-'}<br>
+		<label>Telp</label>: {$data.telp|default:'-'}<br>
+		<label>PIC</label>: {$data.pic|default:'-'}
+		<br>
+		<br>
+		<br>
+		<input type="submit" id="log" class="login login-submit" value="LogIn">
+		<br>
+		</form>
+		<div class="login-help">
+			JResto v1.0 - Jingga Lintas Imaji
+		</div>
+	
+	</div>
+</body>
+</html>

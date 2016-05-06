@@ -16,6 +16,17 @@ class lib {
 	public function __construct(){
 		
 	}
+	function cek_aktifasi(){
+		$ci =& get_instance();
+		$ci->load->model('mservices');
+		$ci->smarty->assign("host",base_url());
+		$get_act=$ci->mservices->getdata('act');
+		//echo $get_act;exit;
+		if($get_act==0){$ci->smarty->display('reg.html');}
+		else{$ci->smarty->display('login.html');}
+		//echo $get_act;exit;
+		
+	}
 	
 	//class Upload File Version 1.0 - Beta
 	function uploadnong($upload_path="", $object="", $file=""){

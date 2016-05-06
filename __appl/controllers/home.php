@@ -4,6 +4,7 @@ class home extends MY_Controller {
 	
 	function __construct(){
 		parent::__construct();
+		
 	}
 	
 	function index(){
@@ -11,7 +12,9 @@ class home extends MY_Controller {
 			$this->smarty->assign('mods', 'srk/main');
 			$this->smarty->display('index.html');
 		}else{
-			$this->smarty->display('login.html');
+			$this->load->library(array('encrypt','lib'));
+			$act=$this->lib->cek_aktifasi();
+			
 		}
 	}
 	
