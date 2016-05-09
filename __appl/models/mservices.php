@@ -101,6 +101,24 @@ class mservices extends CI_Model {
 				}
 				
 			break;
+			case "tbl_produk":
+				$sql="SELECT * FROM tbl_produk";
+				$res=$this->db->query($sql)->result_array();
+				if(count($res)>0){
+					foreach($post as $v){
+						if($v['status_log']=='E'){
+							$id_cloud=$v['id_cloud'];
+							unset($v['id_cloud']);
+							$this->db->where('id_cloud',$id_cloud);
+							$this->db->update($p1, $v); 
+						}else if($v['status_log']=='A'){
+							$this->db->insert($p1, $v); 
+						}
+					}
+				}else{
+					$this->db->insert_batch($p1, $post); 
+				}
+			break;
 		}
 		if($this->db->trans_status() == false){
 			$this->db->trans_rollback();

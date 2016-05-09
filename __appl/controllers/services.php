@@ -26,6 +26,7 @@ class services extends CI_Controller {
 			break;
 			case "get_produk":
 				$data=$this->mservices->getdata('outlet');
+				//print_r($data);
 				$url_fungsi="get_service/get_produk";
 			break;
 			case "upload_penjualan":
@@ -36,7 +37,7 @@ class services extends CI_Controller {
 			break;
 		}
 		$hasil=$this->curl_jresto($url_fungsi,$data,$balikan,$method);
-		//echo "<pre>";print_r($hasil);echo "</pre>";
+		//echo "<pre>";print_r($hasil);echo "</pre>";exit;
 		echo $this->aksi_hasil($p1,$hasil);
 	}
 	
@@ -57,7 +58,20 @@ class services extends CI_Controller {
 					}else{echo "Gagal Ambil Data GErai";exit;}
 				}
 			break;
+			case "get_produk":
+				if(isset($hasil['msg'])){
+					if($hasil['msg']==0){echo "Data Sudah Update";}
+				}else{
+					$ins_data=$this->mservices->simpan_data('tbl_produk',$hasil);
+					if($ins_data==1){
+						echo "BERHASIL";
+					}else{
+						echo "GAGAL";
+					}
+				}
+			break;
 		}
+		//echo "<pre>";print_r($hasil);echo "</pre>";
 	}
 	
 	function curl_jresto($url,$data,$balikan="array",$method="get"){
