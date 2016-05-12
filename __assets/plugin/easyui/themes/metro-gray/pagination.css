@@ -11,7 +11,7 @@
 .pagination-btn-separator {
   float: left;
   height: 24px;
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #ccc;
   border-right: 1px solid #fff;
   margin: 3px 1px;
 }
@@ -42,25 +42,30 @@
 .pagination span {
   font-size: 12px;
 }
+.pagination-link .l-btn-text {
+  width: 24px;
+  text-align: center;
+  margin: 0;
+}
 .pagination-first {
-  background: url('images/pagination_icons.png') no-repeat 0 0;
+  background: url('images/pagination_icons.png') no-repeat 0 center;
 }
 .pagination-prev {
-  background: url('images/pagination_icons.png') no-repeat -16px 0;
+  background: url('images/pagination_icons.png') no-repeat -16px center;
 }
 .pagination-next {
-  background: url('images/pagination_icons.png') no-repeat -32px 0;
+  background: url('images/pagination_icons.png') no-repeat -32px center;
 }
 .pagination-last {
-  background: url('images/pagination_icons.png') no-repeat -48px 0;
+  background: url('images/pagination_icons.png') no-repeat -48px center;
 }
 .pagination-load {
-  background: url('images/pagination_icons.png') no-repeat -64px 0;
+  background: url('images/pagination_icons.png') no-repeat -64px center;
 }
 .pagination-loading {
-  background: url('images/loading.gif') no-repeat;
+  background: url('images/loading.gif') no-repeat center center;
 }
 .pagination-page-list,
 .pagination .pagination-num {
-  border-color: #ddd;
+  border-color: #D3D3D3;
 }

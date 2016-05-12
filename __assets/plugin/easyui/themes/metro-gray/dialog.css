@@ -7,7 +7,7 @@
 .dialog-tool-separator {
   float: left;
   height: 24px;
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #ccc;
   border-right: 1px solid #fff;
   margin: 2px 1px;
 }
@@ -20,11 +20,13 @@
 }
 .dialog-toolbar,
 .dialog-button {
-  background: #fff;
+  background: #fafafa;
+  border-width: 1px;
+  border-style: solid;
 }
 .dialog-toolbar {
-  border-bottom: 1px solid #ddd;
+  border-color: #D3D3D3 #D3D3D3 #ddd #D3D3D3;
 }
 .dialog-button {
-  border-top: 1px solid #ddd;
+  border-color: #ddd #D3D3D3 #D3D3D3 #D3D3D3;
 }

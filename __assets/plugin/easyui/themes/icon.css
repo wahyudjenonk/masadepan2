@@ -64,17 +64,8 @@
 .icon-lock{
 	background:url('icons/lock.png') no-repeat center center;
 }
-.icon-beranda{
-	background:url('icons/icon-beranda.png') no-repeat center center;
-}
-.icon-datamaster{
-	background:url('icons/icon-datamaster.png') no-repeat center center;
-}
-.icon-laporan{
-	background:url('icons/icon-laporan.png') no-repeat center center;
-}
-.icon-pesanan{
-	background:url('icons/icon-pesanan.png') no-repeat center center;
+.icon-more{
+	background:url('icons/more.png') no-repeat center center;
 }
 
 
@@ -87,10 +78,19 @@
 .icon-mini-refresh{
 	background:url('icons/mini_refresh.png') no-repeat center center;
 }
-.icon-rupiah{
-	background:url('icons/rupiah.png') no-repeat center center;
-}
-.icon-log{
-	background:url('icons/log.gif') no-repeat center center;
-}
 
+.icon-large-picture{
+	background:url('icons/large_picture.png') no-repeat center center;
+}
+.icon-large-clipart{
+	background:url('icons/large_clipart.png') no-repeat center center;
+}
+.icon-large-shapes{
+	background:url('icons/large_shapes.png') no-repeat center center;
+}
+.icon-large-smartart{
+	background:url('icons/large_smartart.png') no-repeat center center;
+}
+.icon-large-chart{
+	background:url('icons/large_chart.png') no-repeat center center;
+}
