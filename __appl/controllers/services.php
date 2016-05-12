@@ -8,6 +8,15 @@ class services extends CI_Controller {
 		header('Access-Control-Allow-Origin: *'); 
 		$this->load->model('mservices');		
 		$this->load->library(array('encrypt','lib'));
+		$this->auth = unserialize(base64_decode($this->session->userdata('k45112_r35t00')));
+		//$this->resto = unserialize(base64_decode($this->session->userdata('resto')));
+		if(!isset($this->resto)){
+			$res_data=$this->mservices->getdata('outlet');
+			if(count($res_data)>0){
+				$this->session->set_userdata('resto', base64_encode(serialize($res_data)));	
+				$this->resto = unserialize(base64_decode($this->session->userdata('resto')));
+			}
+		}
 	}
 
 	public function index(){
@@ -30,8 +39,11 @@ class services extends CI_Controller {
 				$url_fungsi="get_service/get_produk";
 			break;
 			case "upload_penjualan":
-				$data=$this->mservices->getdata('penjualan');
-				$method="post";
+				$a=$this->mservices->getdata('penjualan');
+				$data=array('data'=>json_encode($a));
+				//$data=array('y'=>'X','C'=>1);
+				//print_r($data);exit;
+				//$method="get";
 				$url_fungsi="get_service/upload_penjualan";
 				//print_r($data);exit;
 			break;
@@ -70,6 +82,14 @@ class services extends CI_Controller {
 					}
 				}
 			break;
+			case "upload_penjualan":
+				$ins_data=$this->mservices->simpan_data('tbl_log_penjualan',$hasil);
+				if($ins_data==1){
+					echo "BERHASIL";
+				}else{
+					echo "GAGAL";
+				}
+			break;
 		}
 		//echo "<pre>";print_r($hasil);echo "</pre>";
 	}
@@ -90,7 +110,7 @@ class services extends CI_Controller {
 		if($method=="post"){
 			curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		}
-		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
+		//curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
 		//print_r($fields_string);
 		$result = curl_exec($ch);
 		if ($result === false) {

@@ -4,6 +4,7 @@ $route['default_controller'] = "home";
 $route['404_override'] = '';
 
 $route['kasir'] = "home/getdisplay/kasir/";
+$route['pembelian'] = "home/getdisplay/pembelian/";
 $route['kasir-lantai'] = "home/getdisplay/lantai_kasir";
 $route['detail-meja'] = "home/getdisplay/meja_detail";
 $route['set-meja-aktif'] = "home/simpansavedata/tbl_meja";

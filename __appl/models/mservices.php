@@ -4,7 +4,6 @@ class mservices extends CI_Model {
 
 	function __construct() {
 		parent::__construct();
-		
         $ci = & get_instance();
 	}
 	
@@ -27,14 +26,19 @@ class mservices extends CI_Model {
 						if(isset($arr['stat']))return 1;else return 0;
 					}else{return 0;}
 				}
+				
 				return $arr;
 			break;
 			case "penjualan":
-				$sql="SELECT A.*,B.cl_meja_id,B.pembayaran,B.tbl_gerai_outlet_id,B.tgl_faktur,B.tbl_member_id 
+				//print_r($this->resto);exit;
+				$sql="SELECT C.id_cloud,A.no_faktur_penjualan,A.tbl_produk_id as id_produk_outlet,
+					A.qty,A.diskon,A.total,B.cl_meja_id,B.pembayaran,B.tbl_gerai_outlet_id,B.tgl_faktur,B.tbl_member_id 
 					FROM tbl_d_penjualan_outlet A 
 					LEFT JOIN tbl_penjualan_outlet B ON A.no_faktur_penjualan=B.no_faktur_penjualan
-					WHERE B.tgl_faktur='2012-09-20'";
+					LEFT JOIN tbl_produk C ON A.tbl_produk_id=C.id
+					";
 				$data=$this->db->query($sql)->result_array();
+				return $data;
 				//return json_encode(array("customer"=>$data));
 			break;
 			
@@ -118,6 +122,9 @@ class mservices extends CI_Model {
 				}else{
 					$this->db->insert_batch($p1, $post); 
 				}
+			break;
+			case "tbl_log_penjualan":
+				$this->db->insert_batch($p1, $post); 
 			break;
 		}
 		if($this->db->trans_status() == false){

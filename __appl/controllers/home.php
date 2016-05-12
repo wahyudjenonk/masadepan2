@@ -23,6 +23,7 @@ class home extends MY_Controller {
 			case "kasir":
 				$jml_lt = $this->mhome->getdata('get_setting', 'row_array', 'jml_lt');
 				$jm = "";
+				if(!isset($jml_lt['value']))$jml_lt['value']=1;
 				for($i=1; $i <= $jml_lt['value']; $i++){
 					$jm .= "'LANTAI ".$i."', ";
 				}				
@@ -48,6 +49,9 @@ class home extends MY_Controller {
 			break;
 			case "pengaturan":
 				$this->smarty->display('mod/pengaturan/main.html');				
+			break;
+			case "pembelian":
+				$this->smarty->display('mod/pembelian/main.html');				
 			break;
 			case "contenttab":
 				$this->smarty->assign('modul', $p1);
