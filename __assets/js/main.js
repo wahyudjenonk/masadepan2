@@ -153,21 +153,10 @@ function genTab(div, mod, sub_mod, tab_array, div_panel, judul_panel, mod_num, h
 		width: (typeof(width_tab) == "undefined" ? getClientWidth()-280 : width_tab),
 		plain: false,
 		fit:true,
-		selected:0
-	});
-	
-	if(tab_array.length > 0){
-		for(var x in tab_array){
-			var isi_tab=tab_array[x].replace(/ /g,"_");
-			$(div).tabs('add',{
-				title:tab_array[x],
-				content:'<div style="padding: 5px;"><div id="'+isi_tab.toLowerCase()+'" style="height: 200px;">'+isi_tab.toLowerCase()+'</div></div>'
-			});
-		}
-		$(div).tabs({
-			onSelect: function(title){
+		onSelect: function(title){
 				var isi_tab=title.replace(/ /g,"_");
 				var par={};
+				console.log(isi_tab);
 				$('#'+isi_tab.toLowerCase()).html('').addClass('loading');
 				urlnya = host+'index.php/content-tab/'+mod+'/'+isi_tab.toLowerCase();
 				$(div_panel).panel({title:title});
@@ -187,8 +176,19 @@ function genTab(div, mod, sub_mod, tab_array, div_panel, judul_panel, mod_num, h
 				$.post(urlnya,par,function(r){
 					$('#'+isi_tab.toLowerCase()).removeClass('loading').html(r);
 				});
-			}
-		});
+		},
+		selected:0
+	});
+	
+	if(tab_array.length > 0){
+		for(var x in tab_array){
+			var isi_tab=tab_array[x].replace(/ /g,"_");
+			$(div).tabs('add',{
+				title:tab_array[x],
+				content:'<div style="padding: 5px;"><div id="'+isi_tab.toLowerCase()+'" style="height: 200px;">'+isi_tab.toLowerCase()+'zzzz</div></div>'
+			});
+		}
+		
 		var tab = $(div).tabs('select',0);
 		
 	}
