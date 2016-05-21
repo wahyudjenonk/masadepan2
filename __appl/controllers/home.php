@@ -10,11 +10,10 @@ class home extends MY_Controller {
 	function index(){
 		if($this->auth){
 			$this->smarty->assign('mods', 'srk/main');
-			$this->smarty->display('index.html');
+			$this->smarty->display('main-index.html');
 		}else{
 			$this->load->library(array('encrypt','lib'));
 			$act=$this->lib->cek_aktifasi();
-			
 		}
 	}
 	
