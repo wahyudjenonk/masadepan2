@@ -23,7 +23,7 @@ class lib {
 		$get_act=$ci->mservices->getdata('act');
 		//echo $get_act;exit;
 		if($get_act==0){$ci->smarty->display('reg.html');}
-		else{$ci->smarty->display('login.html');}
+		else{$ci->smarty->display('main-login.html');}
 		//echo $get_act;exit;
 		
 	}
