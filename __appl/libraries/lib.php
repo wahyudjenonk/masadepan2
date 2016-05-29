@@ -233,9 +233,9 @@ class lib {
 		$ci =& get_instance();
 		$ci->load->database();
 		
-		$page = (integer) (($this->input->post('page')) ? $this->input->post('page') : "1");
-		$limit = (integer) (($this->input->post('rows')) ? $this->input->post('rows') : "10");
-		$count = $this->db->query($sql)->num_rows();
+		$page = (integer) (($ci->input->post('page')) ? $ci->input->post('page') : "1");
+		$limit = (integer) (($ci->input->post('rows')) ? $ci->input->post('rows') : "10");
+		$count = $ci->db->query($sql)->num_rows();
 		
 		if( $count >0 ) { $total_pages = ceil($count/$limit); } else { $total_pages = 0; } 
 		if ($page > $total_pages) $page=$total_pages; 

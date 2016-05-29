@@ -61,6 +61,7 @@ class home extends MY_Controller {
 	}
 	
 	function getdatagrid($type){
+		//echo $type;exit;
 		echo $this->mhome->getdata($type, 'json');
 	}
 	

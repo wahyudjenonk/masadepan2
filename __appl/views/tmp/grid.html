@@ -31,14 +31,14 @@
 		
 		{if $crud|default:'' eq 'true'}
 			{if $hapus eq 'true'}
-				<a href="javascript:void(0)" style='float:right;' class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="genform('delete', '{$modul}','{$submodul}','','');">
+				<a href="javascript:void(0)" style='float:right;' class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="genform('delete', '{$modul|default:''}','');">
 					<span class="l-btn-left">
 						<span class="l-btn-text icon-remove l-btn-icon-left">Hapus</span>
 					</span>
 				</a>	
 			{/if}
 			{if $edit eq 'true'}
-				<a href="javascript:void(0)" style='float:right;' class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="genform('edit', '{$modul}','{$submodul}');">
+				<a href="javascript:void(0)" style='float:right;' class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="genform('edit', '{$modul|default:''}');">
 					<span class="l-btn-left">
 						<span class="l-btn-text icon-edit l-btn-icon-left">Edit</span>
 					</span>
@@ -46,7 +46,7 @@
 				&nbsp;
 			{/if}
 			{if $tambah eq 'true'}
-				<a href="javascript:void(0)" style='float:right;' class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="genform('add', '{$modul}','{$submodul}');">
+				<a href="javascript:void(0)" style='float:right;' class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="genform('add', '{$modul|default:''}');">
 					<span class="l-btn-left ">
 						<span class="l-btn-text icon-add l-btn-icon-left">Tambah</span>
 					</span>

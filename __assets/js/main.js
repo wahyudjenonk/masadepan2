@@ -232,6 +232,47 @@ function genGrid(modnya, divnya, lebarnya, tingginya){
 				{field:'total_harga',title:'Total Harga',width:120, halign:'center',align:'center'},
 			];
 		break;
+		case "list_pembelian":
+			judulnya = "Purchase Order / Pembelian";
+			tingginya = getClientHeight-330;
+			urlglobal = host+'datagrid/'+modnya;
+			fitnya = true;
+			pagesizeboy = 50;
+			paging = true;
+			kolom[modnya] = [	
+				{field:'no_po',title:'No PO',width:150, halign:'center',align:'center'},
+				{field:'tgl_po',title:'Tgl. PO',width:120, halign:'center',align:'center'},
+				{field:'nama_supplier',title:'Supplier',width:250, halign:'center',align:'left'},
+				{field:'pembayaran',title:'Jenis Pembayaran',width:120, halign:'center',align:'left',
+					formatter: function(value,row,index){
+						if (value == 'K'){
+							return "Kredit";
+						} else {
+							return "Tunai";
+						}
+					}
+				},
+				{field:'stat',title:'Status Pembayaran',width:120, halign:'center',align:'left',
+					formatter: function(value,row,index){
+						if (value == 'BL'){
+							return "<font color='red'>Belum Lunas</font>";
+						} else {
+							return "Lunas";
+						}
+					}
+				},
+				{field:'total',title:'Total',width:150, halign:'center',align:'right',
+					formatter: function(value,row,index){
+							return NumberFormat(value);
+					}
+				},
+				{field:'id',title:'Detil Barang',width:100, halign:'center',align:'center',
+					formatter: function(value,row,index){
+							return "Lihat";
+					}
+				}
+			];
+		break;
 		case "list_produk_kasir":
 			judulnya = "Produk/Barang";
 			tingginya = getClientHeight-330;
@@ -361,5 +402,121 @@ function postAll(type, dom, p1, p2, p3){
 		$('#'+dom).removeClass('loading').html(r);
 	});
 	
+}
+function NumberFormat(value) {
+	
+    var jml= new String(value);
+    if(jml=="null" || jml=="NaN") jml ="0";
+    jml1 = jml.split("."); 
+    jml2 = jml1[0];
+    amount = jml2.split("").reverse();
+
+    var output = "";
+    for ( var i = 0; i <= amount.length-1; i++ ){
+        output = amount[i] + output;
+        if ((i+1) % 3 == 0 && (amount.length-1) !== i)output = '.' + output;
+    }
+    //if(jml1[1]===undefined) jml1[1] ="00";
+   // if(isNaN(output))  output = "0";
+    return output; // + "." + jml1[1];
+}
+function genform(type, modulnya, stswindow, tabel){
+	var urlpost = host+'backend/get_form/'+modulnya+'/form';
+	var urldelete = host+'backend/cruddata/'+modulnya;
+	var id_tambahan = "";
+	
+	switch(modulnya){
+		case "produk":
+			table="tbl_produk";
+			urlpost = host+'backend/getdisplay/get-form/'+modulnya;
+		break;
+		case "supplier":
+			table="tbl_supplier";
+			urlpost = host+'backend/getdisplay/get-form/'+modulnya;
+		break;
+		case "outlet":
+			table = "tbl_gerai_outlet";
+			urlpost = host+'backend/getdisplay/get-form/'+modulnya;
+		break;
+		case "perangkat_kasir":
+			table="tbl_perangkat_kasir";
+			urlpost = host+'backend/getdisplay/get-form/'+modulnya;
+		break;
+		case "kategori_produk":
+			table="cl_kategori_produk";
+			urlpost = host+'backend/getdisplay/get-form/'+modulnya;
+		break;
+		
+		case "promo":
+			table="tbl_promo";
+			urlpost = host+'backend/getdisplay/get-form/'+modulnya;
+		break;
+	}
+	
+	switch(type){
+		case "add":
+			if(stswindow == undefined){
+				$('#grid_nya_'+modulnya).hide();
+				$('#detil_nya_'+modulnya).empty().show().addClass("loading");
+			}
+			$.post(urlpost, {'editstatus':'add', 'id_tambahan':id_tambahan }, function(resp){
+				if(stswindow == 'windowform'){
+					windowForm(resp, judulwindow, lebar, tinggi);
+				}else if(stswindow == 'windowpanel'){
+					windowFormPanel(resp, judulwindow, lebar, tinggi);
+				}else{
+					$('#detil_nya_'+modulnya).show();
+					$('#detil_nya_'+modulnya).html(resp).removeClass("loading");
+				}
+			});
+		break;
+		case "edit":
+		case "delete":
+		
+			var row = $("#grid_"+modulnya).datagrid('getSelected');
+			if(row){
+				if(type=='edit'){
+					if(stswindow == undefined){
+						$('#grid_nya_'+modulnya).hide();
+						$('#detil_nya_'+modulnya).show().addClass("loading");	
+					}
+					$.post(urlpost, { 'editstatus':'edit', id:row.id, 'ts':table, 'submodul':modulnya, 'bulan':row.bulan, 'tahun':row.tahun, 'id_tambahan':id_tambahan }, function(resp){
+						if(stswindow == 'windowform'){
+							windowForm(resp, judulwindow, lebar, tinggi);
+						}else if(stswindow == 'windowpanel'){
+							windowFormPanel(resp, judulwindow, lebar, tinggi);
+						}else{
+							$('#detil_nya_'+modulnya).show();
+							$('#detil_nya_'+modulnya).html(resp).removeClass("loading");
+						}
+					});
+				}else if(type=='delete'){
+					//if(confirm("Anda Yakin Menghapus Data Ini ?")){
+					$.messager.confirm('JResto Soft','Anda Yakin Menghapus Data Ini ?',function(re){
+						if(re){
+							loadingna();
+							$.post(urldelete, {id:row.id, 'sts_crud':'delete'}, function(r){
+								if(r==1){
+									winLoadingClose();
+									$.messager.alert('JResto Soft',"Data Terhapus",'info');
+									$('#grid_'+modulnya).datagrid('reload');								
+								}else{
+									winLoadingClose();
+									console.log(r)
+									$.messager.alert('JResto Soft',"Gagal Menghapus Data",'error');
+								}
+							});	
+						}
+					});	
+					//}
+				}
+				
+			}
+			else{
+				$.messager.alert('Roger Salon',"Select Row In Grid",'error');
+			}
+		break;
+		
+	}
 }
 

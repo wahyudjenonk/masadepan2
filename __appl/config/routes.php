@@ -13,7 +13,7 @@ $route['pengaturan'] = "home/getdisplay/pengaturan";
 
 //General Function
 $route['content-tab/(:any)/(:any)'] = "home/getdisplay/contenttab/$1/$2/";
-$route['datagrid/(:any)'] = "home/datagrid";
+$route['datagrid/(:any)'] = "home/getdatagrid/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

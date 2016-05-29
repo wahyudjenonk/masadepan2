@@ -14,6 +14,17 @@ class mhome extends CI_Model{
 		$where = " WHERE 1=1 ";
 		
 		switch($type){
+			case "list_pembelian":
+				$sql = "
+					SELECT A.*,B.nama_supplier
+					FROM tbl_m_trans_supplier A 
+					LEFT JOIN tbl_supplier B ON A.tbl_supplier_id=B.id					
+				";
+				
+				//return $this->db->get_where('tbl_user', array('nama_user'=>$p1) )->result();
+				//exit;
+				//echo $sql;exit;
+			break;
 			case "data_login":
 				$sql = "
 					SELECT *
