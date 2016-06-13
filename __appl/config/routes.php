@@ -3,6 +3,8 @@
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 
+$route['logout'] = 'login/logout';
+
 $route['kasir'] = "home/getdisplay/kasir/";
 $route['pembelian'] = "home/getdisplay/pembelian/";
 $route['kasir-lantai'] = "home/getdisplay/lantai_kasir";

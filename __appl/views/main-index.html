@@ -76,10 +76,10 @@
 								<a href="#" ><i class="fa fa-home nav_icon"></i>Beranda</a>
 							</li>
 							<li>
-								<a href="#" ><i class="fa fa-bar-chart nav_icon"></i>Kasir</a>
+								<a href="javascript:void(0);" onClick="loadUrl('{$host}kasir');"><i class="fa fa-bar-chart nav_icon"></i>Kasir</a>
 							</li>
 							<li>
-								<a href="javascript:void(0);" onClick="loadUrl('{$host}index.php/pembelian');" ><i class="fa fa-file-text-o nav_icon"></i>Pembelian</a>
+								<a href="javascript:void(0);" onClick="loadUrl('{$host}pembelian');" ><i class="fa fa-file-text-o nav_icon"></i>Pembelian</a>
 							</li>
 							<li>
 								<a href="#" ><i class="fa fa-book nav_icon"></i>Reservasi</a>
@@ -136,7 +136,7 @@
 								</a>
 								<ul class="dropdown-menu drp-mnu">
 									<li> <a href="#"><i class="fa fa-user"></i> Ubah Password</a> </li> 
-									<li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+									<li> <a href="{$host}logout"><i class="fa fa-sign-out"></i> Logout</a> </li>
 								</ul>
 							</li>
 						</ul>
@@ -185,7 +185,7 @@
 			</div>
 			
 			<div class="footer">
-			   <p>&copy; 2016 Jingga Sinergi Idea | All Right Reserved </p>
+			   <p>&copy; 2016 JResto | All Right Reserved </p>
 			</div>
 		
 		</div>
@@ -198,10 +198,12 @@
 				body = document.body;
 				
 			showLeftPush.onclick = function() {
+				/*
 				classie.toggle( this, 'active' );
 				classie.toggle( body, 'cbp-spmenu-push-toright' );
 				classie.toggle( menuLeft, 'cbp-spmenu-open' );
 				disableOther( 'showLeftPush' );
+				*/
 			};
 			
 
