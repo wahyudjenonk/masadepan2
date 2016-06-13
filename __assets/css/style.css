@@ -122,7 +122,7 @@ button#showLeftPush:hover {
 	transition: all 0.3s ease;
 }
 .cbp-spmenu-push div#page-wrapper {
-    margin: 0em 0 0 15.3em;
+    margin: 0em -30px 0 13.6em;
 	transition:.5s all;
 	-webkit-transition:.5s all;
 	-moz-transition:.5s all;
@@ -804,9 +804,9 @@ ul.dropdown-menu.drp-mnu li {
 /*---footer---*/
 .footer {
     background: #fff;
-    padding: 1em;
+    padding: 5px 10px 5px 260px;
     width: 100%;
-    text-align:center;
+    /*text-align:center;*/
 	box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.21);
 	-webkit-box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.21);
 	-moz-box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.21);
@@ -876,7 +876,7 @@ ul.dropdown-menu.drp-mnu li {
 }
 /*--charts--*/
 .charts,.row {
-    margin: 2em 0 0;
+    margin: 1em 0 1em;
 }
 .charts-grids {
     background-color: #fff;
@@ -1501,7 +1501,7 @@ button.note-color-btn {
 /*--grids--*/
 .grids {
     padding: 2em 1em;
-	margin-bottom: 2em;
+	margin-bottom: -30px;
 }
 .grids .form-group {
     margin: 0;
