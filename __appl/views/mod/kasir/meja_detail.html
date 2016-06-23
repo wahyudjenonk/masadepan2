@@ -1,74 +1,76 @@
-<div style='display:block;margin-bottom:20px;'>
-	{if $status_meja eq 'N'}
-		<span class='boxkecil' style='margin-top:20px;'>MEJA NO. {$nomor_meja}</span>
-	{/if}
-	
-	<a style='float:right;margin-bottom:10px;' id='kembali_ke_menu' href='{$host}'>Kembali Ke Menu</a>
-	&nbsp;
-	<a style='float:right;margin-bottom:10px;' id='kembali_ke_list_meja' href='{$host}'>Kembali Ke List Meja</a>
-</div>
-{if $status_meja eq 'Y'}
-	<div id='menu-utama' style='height:93% !important;'>
-		<br/>
-		<h3>Meja No. {$nomor_meja}, Masih Tersedia</h3>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-		<button class='tombol-menu-awal' href='javascript:void(0);' onClick="postAll('set_aktif_meja', 'mainContainer', '{$id_meja}');" >
-			<img src='{$host}__assets/images/yes.png'> Aktif
-		</button>
-		<button class='tombol-menu-awal' href='javascript:void(0);' onClick="postAll('set_tidak_aktif_meja', 'mainContainer', '{$id_meja}');" >
-			<img src='{$host}__assets/images/cancel.png'> Tidak Aktif
-		</button>
+<div class="grids">
+	<div class="panel panel-widget">
+		<div class="chute chute-center text-center">
+			<div class="row mb40" style='margin-top:5px !important;'>
+				<div class="col-md-12">
+					{if $status_meja eq 'Y'}
+						<div id='menu-utama' style='height:78% !important;'>
+							<br/>
+							<h3>Meja No. {$nomor_meja}, Masih Tersedia</h3>
+							<br/>
+							<br/>
+							<br/>
+							<br/>
+							<br/>
+							<br/>
+							<br/>
+							<br/>
+							<button class='tombol-menu-awal' href='javascript:void(0);' onClick="postAll('set_aktif_meja', 'mainContainer', '{$id_meja}', '{$nomor_meja}');" >
+								<img src='{$host}__assets/images/yes.png'> Aktif
+							</button>
+							<button class='tombol-menu-awal' href='javascript:void(0);' onClick="postAll('set_tidak_aktif_meja', 'mainContainer', '{$id_meja}', '{$nomor_meja}');" >
+								<img src='{$host}__assets/images/cancel.png'> Tidak Aktif
+							</button>
+						</div>
+					{elseif $status_meja eq 'N'}
+						<table width='100%'>
+							<tr>
+								<td style='padding:5px;' width='45%'>
+									{include file='tmp/grid.html' tipe_grid='list_pesanan_kasir' divnya='pes_kasir' tinggi_grid='(getClientHeight()-230)' tinggi_toolbar='40px' }
+								</td>
+								<td style='padding:5px;' width='55%'>
+									{include file='tmp/grid.html' tipe_grid='list_produk_kasir' divnya='prod_kasir' tinggi_grid='(getClientHeight()-230)' tinggi_toolbar='40px' filter_kategori='true' optkategori="$option_kategori_produk" input_cari='true' label_cari='Cari Produk' button_refresh='true'}
+								</td>
+							</tr>
+							<tr>
+								<td style='padding:5px;'>
+									<font style='font-weight:bold;font-size:13px;'>TOTAL QTY</font> : <input type='text' value="{$tot_qty|default:'0'}" id='total_qty' style='width:100px;padding:5px;' readonly />
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<font style='font-weight:bold;font-size:13px;'>TOTAL HARGA</font> : <input type='text' value="{$tot_harga|default:'0'}" id='total_hrg' style='width:140px;padding:5px;' readonly />
+									<br/>
+									<hr/>
+									<button class='tombol-menu-awal' href='javascript:void(0);' onClick="kumpulAction('selesai-transaksi', '{$id_meja}', '{$nomor_meja}');" >
+										<img src='{$host}__assets/images/cash_register.png' width='30px' height='30px'> Bayar
+									</button>
+									<button class='tombol-menu-awal' href='javascript:void(0);' onClick="loadUrl('{$host}kasir');" >
+										<img src='{$host}__assets/images/undo.png' width='30px' height='30px'> Kembali
+									</button>
+									<button class='tombol-menu-awal' href='javascript:void(0);' onClick="kumpulAction('hapus-item', '{$id_meja}');" >
+										<img src='{$host}__assets/images/cancel.png' width='30px' height='30px'> Hapus Item
+									</button>
+								</td>
+								<td style='padding:5px;'>
+									<span class='boxkecil' style='margin-top:20px;'>MEJA NO. {$nomor_meja}</span>
+								</td>
+							</tr>
+						</table>
+					{/if}
+				</div>
+			</div>
+		</div>
 	</div>
-{elseif $status_meja eq 'N'}
-	<table width='100%'>
-		<tr>
-			<td width='40%'>
-				{include file='tmp/grid.html' tipe_grid='list_pesanan_kasir' divnya='pes_kasir' tinggi_grid='(getClientHeight()-230)' tinggi_toolbar='30px' }
-			</td>
-			<td width='60%'>
-				{include file='tmp/grid.html' tipe_grid='list_produk_kasir' divnya='prod_kasir' tinggi_grid='(getClientHeight()-230)' tinggi_toolbar='30px' filter_kategori='true'}
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<table width='100%' style='font-weight:bold;'>
-					<tr>
-						<td width='29%'>Total Item</td>
-						<td width='2%'> : </td>
-						<td width='69%'> <span id='tot_item'></span> </td>
-					</tr>
-					<tr>
-						<td width='29%'>Total Harga</td>
-						<td width='2%'> : </td>
-						<td width='69%'> Rp. <span id='tot_harga'></span> </td>
-					</tr>
-				</table>
-			</td>
-			<td>
-				<button class='tombol-kasir' style='background:{$background}' href='javascript:void(0);' onClick="postAll();">
-					Print
-				</button>
-				&nbsp;
-				<button class='tombol-kasir' style='background:{$background}' href='javascript:void(0);' onClick="postAll();">
-					Bayar
-				</button>
-			</td>
-		</tr>
-	</table>
-{/if}
+</div>
 
 <script>
-	$('#kembali_ke_menu').linkbutton({
-		iconCls: 'icon-undo'
+	var id_meja = "{$id_meja}";
+	$('#list_produk_kasir_cari').autocomplete({
+		source: host+'cari-produk-autocomplete',
+		minLength: 2,
+		select: function( event, ui ){
+			$('#prod_kasir').datagrid('reload', {
+				'nama_produk' : $(this).val()
+			})
+		}
 	});
-	$('#kembali_ke_list_meja').linkbutton({
-		iconCls: 'icon-undo'
-	});
+	
 </script>

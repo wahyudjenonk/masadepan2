@@ -89,8 +89,10 @@ class lib {
         $str = "";
 		$rangehuruf = range('A','Z');
 		$rangeangka = range('0','9');
-		if($parameter == 'reg'){
+		if($parameter == 'angka'){
 			$characters = array_merge($rangeangka);
+		}elseif($parameter == 'huruf'){
+			$characters = array_merge($rangehuruf);
 		}else{
 			$characters = array_merge($rangehuruf, $rangeangka);
 		}
@@ -183,13 +185,13 @@ class lib {
 		}
 		
 		
-		$optTemp = '<option value="0"> -- Choose -- </option>';
+		$optTemp = '<option value=""> -- Choose -- </option>';
 		switch($type){
-			case "import_reference":
+			case "jenis_pembayaran":
 				$data = array(
-					'0' => array('id'=>'tbl_emp','txt'=>'Data Employee'),
-					'1' => array('id'=>'tbl_exp','txt'=>'Data Expense'),
-					'2' => array('id'=>'tbl_loc','txt'=>'Data Allocation'),
+					'0' => array('id'=>'CASH','txt'=>'CASH'),
+					'1' => array('id'=>'DEBIT','txt'=>'KARTU DEBIT'),
+					'2' => array('id'=>'KREDIT','txt'=>'KARTU KREDIT'),
 				);
 			break;
 			case "jenis_kelamin":

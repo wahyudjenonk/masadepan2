@@ -11,14 +11,27 @@
 <div id="div_{$tipe_grid}" style="width:100%;">
 	<div id='{$divnya}'></div>
 	<div id='toolbar_{$tipe_grid}' style="padding:5px;height:{$tinggi_toolbar|default:''}">
-		{if $filter_kategori|default:'' eq 'true'}
-			<div style="float:{$align|default:'left'};">
+		<div style="float:{$align|default:'left'};">
+			{if $filter_kategori|default:'' eq 'true'}
 				<label width='100px'>Filter Kategori</label> :
-				<select id='filter_kategori' style='width:150px;'>
-					<option value=''> -- Pilih -- </option>
+				<select id='{$tipe_grid}_filter_kategori' style='width:150px;padding:5px;'>
+					{$optkategori}
 				</select>
-			</div>
-		{/if}
+			{/if}
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			{if $input_cari|default:'' eq 'true'}
+				<label width='100px'>{$label_cari}</label> :
+				<input type='text' id='{$tipe_grid}_cari' style='padding:5px;width:150px;' />
+			{/if}
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			{if $button_refresh|default:'' eq 'true'}
+			<a href="javascript:void(0)" class="l-btn l-btn-small l-btn-plain" group="" id="{$tipe_grid}_button_refresh" >
+				<span class="l-btn-left">
+					<span class="l-btn-text icon-reload l-btn-icon-left">&nbsp;</span>
+				</span>
+			</a>
+			{/if}
+		</div>
 		
 		{if $filter_lantai|default:'' eq 'true'}
 			<div style="float:{$align|default:'left'};">
@@ -61,5 +74,16 @@
 <script>
 	var tipe_grid = "{$tipe_grid}";
 	$('#div_{$tipe_grid}').css('height', {$tinggi_grid} );
-	genGrid('{$tipe_grid}', '{$divnya}');
+	genGrid('{$tipe_grid}', '{$divnya}', '', '', "{$id_meja|default:''}");
+
+	$('#{$tipe_grid}_button_refresh').on('click', function(){
+		$('#{$divnya}').datagrid('reload', {});
+		$('#{$tipe_grid}_cari').val('');
+		$('#{$tipe_grid}_filter_kategori').val('');
+	});
+	$('#{$tipe_grid}_filter_kategori').on('change', function(){
+		$('#{$divnya}').datagrid('reload', {
+			'kategori' : $(this).val()
+		});
+	});
 </script>

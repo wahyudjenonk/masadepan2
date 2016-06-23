@@ -6,9 +6,18 @@ $route['404_override'] = '';
 $route['logout'] = 'login/logout';
 
 $route['kasir'] = "home/getdisplay/kasir/";
-$route['pembelian'] = "home/getdisplay/pembelian/";
 $route['kasir-lantai'] = "home/getdisplay/lantai_kasir";
+$route['trx-penjualan'] = "home/simpansavedata/transaksi_penjualan";
+$route['hapus-item'] = "home/simpansavedata/hapus_item_kasir";
+$route['tutup-transaksi'] = "home/simpansavedata/tutup_transaksi";
+$route['total-pesanan'] = "home/getdisplay/total_per_meja";
+$route['selesai-transaksi'] = "home/getdisplay/selesai_transaksi_kasir";
 $route['detail-meja'] = "home/getdisplay/meja_detail";
+
+$route['cari-produk-autocomplete'] = "home/getdisplay/autocomplete/cari_produk";
+
+
+$route['pembelian'] = "home/getdisplay/pembelian/";
 $route['set-meja-aktif'] = "home/simpansavedata/tbl_meja";
 
 $route['pengaturan'] = "home/getdisplay/pengaturan";

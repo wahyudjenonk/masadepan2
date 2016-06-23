@@ -10,14 +10,13 @@
 	<label style='width:250px;margin-right:10px;'>{$label}</label> :
 {/if}
 
-
 {if $type eq 'select'}
 	<select name='{$name}' id='{$name}' style='padding:3px;width:{$width}'>
 		{$option}
 	</select>
 {elseif $type eq 'text'}
 	{assign var="bacadoang" value=$readonly|default:'' }
-	<input  type="text" name="{$name|default:''}" id="{$name|default:''}" value="{$value|default:''}" style="padding:3px;width:{$width}">
+	<input {$bacadoang} type="text" name="{$name|default:''}" id="{$id|default:$name}" value="{$value|default:''}" style="padding:3px;width:{$width}">
 {elseif $type eq 'textarea'}
 	<textarea style='display:inline-block;' name="{$name|default:''}" id="{$name|default:''}" rows="{$rows|default:''}" cols="{$cols|default:''}" > {$value|default:''}</textarea>
 {/if}
