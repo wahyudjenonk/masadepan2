@@ -94,6 +94,18 @@
 .sidebar .nav-third-level li a {
     padding-left: 52px;
 }
+
+
+.boxkecil{
+	background:#FDFCFB;
+	width:auto;
+	padding:30px;
+	font-weight:bold;
+	font-size:13px;
+	border:1px solid #E8814F;
+	border-radius: 5px;
+}
+
 @media(min-width:768px){
     .navbar-top-links .dropdown-messages,
     .navbar-top-links .dropdown-tasks,

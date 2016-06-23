@@ -93,7 +93,34 @@ function closeWindow2(){
     //removeElement(container);
     $(container).html("");
 }
-
+var divcontainerz;
+function windowLoading(html,judul,width,height){
+    divcontainerz = "win"+Math.floor(Math.random()*9999);
+    $("<div id="+divcontainerz+"></div>").appendTo("body");
+    divcontainerz = "#"+divcontainerz;
+    $(divcontainerz).html(html);
+    $(divcontainerz).css('padding','5px');
+    $(divcontainerz).window({
+       title:judul,
+       width:width,
+       height:height,
+       autoOpen:false,
+       modal:true,
+       maximizable:false,
+       resizable:false,
+       minimizable:false,
+       closable:false,
+       collapsible:false,  
+    });
+    $(divcontainerz).window('open');        
+}
+function winLoadingClose(){
+    $(divcontainerz).window('close');
+    //$(divcontainer).html('');
+}
+function loadingna(){
+	windowLoading("<img src='"+host+"__assets/images/loading.gif' style='position: fixed;top: 50%;left: 50%;margin-top: -10px;margin-left: -25px;'/>","Please Wait",200,100);
+}
 
 function submit_form(frm,func){
     var url = $('#'+frm).attr("url");
@@ -195,7 +222,7 @@ function genTab(div, mod, sub_mod, tab_array, div_panel, judul_panel, mod_num, h
 	
 }
 
-function genGrid(modnya, divnya, lebarnya, tingginya){
+function genGrid(modnya, divnya, lebarnya, tingginya, par1){
 	if(lebarnya == undefined){
 		lebarnya = getClientWidth-250;
 	}
@@ -221,17 +248,48 @@ function genGrid(modnya, divnya, lebarnya, tingginya){
 	
 	switch(modnya){
 		case "list_pesanan_kasir":
-			judulnya = "Pesanan";
+			judulnya = "";
 			tingginya = getClientHeight-330;
 			urlglobal = host+'datagrid/'+modnya;
 			fitnya = true;
 			pagesizeboy = 50;
+			param['id_meja'] = par1;
 			kolom[modnya] = [	
-				{field:'nama_produk',title:'Nama Produk',width:200, halign:'center',align:'center'},
-				{field:'qty',title:'Qty',width:100, halign:'center',align:'left'},
-				{field:'total_harga',title:'Total Harga',width:120, halign:'center',align:'center'},
+				{field:'nama_produk',title:'Nama Produk',width:200, halign:'center',align:'left'},
+				{field:'qty',title:'Qty',width:90, halign:'center',align:'right'},
+				{field:'total_harga',title:'Total Harga',width:120, halign:'center',align:'right',
+					formatter: function(value,row,index){
+						if (row.total_harga){
+							return NumberFormat(row.total_harga);
+						} else {
+							return '-';
+						}
+					}
+				},
 			];
 		break;
+		case "list_produk_kasir":
+			judulnya = "";
+			tingginya = getClientHeight-330;
+			urlglobal = host+'datagrid/'+modnya;
+			fitnya = true;
+			pagesizeboy = 50;
+			paging = true;
+			doble_klik = true;
+			kolom[modnya] = [	
+				{field:'nama_kategori',title:'Kategori',width:130, halign:'center',align:'left'},
+				{field:'nama_produk',title:'Nama Produk',width:240, halign:'center',align:'left'},
+				{field:'harga_jual',title:'Harga Satuan',width:150, halign:'center',align:'right',
+					formatter: function(value,row,index){
+						if (row.harga_jual){
+							return NumberFormat(row.harga_jual);
+						} else {
+							return '-';
+						}
+					}
+				},
+			];
+		break;		
 		case "list_pembelian":
 			judulnya = "Purchase Order / Pembelian";
 			tingginya = getClientHeight-330;
@@ -271,19 +329,6 @@ function genGrid(modnya, divnya, lebarnya, tingginya){
 							return "Lihat";
 					}
 				}
-			];
-		break;
-		case "list_produk_kasir":
-			judulnya = "Produk/Barang";
-			tingginya = getClientHeight-330;
-			urlglobal = host+'datagrid/'+modnya;
-			fitnya = true;
-			pagesizeboy = 50;
-			paging = true;
-			kolom[modnya] = [	
-				{field:'kategori',title:'Kategori',width:200, halign:'center',align:'center'},
-				{field:'nama_produk',title:'Nama Produk',width:300, halign:'center',align:'center'},
-				{field:'total_harga',title:'Harga Satuan',width:150, halign:'center',align:'center'},
 			];
 		break;
 		case "master_produk":
@@ -362,12 +407,98 @@ function genGrid(modnya, divnya, lebarnya, tingginya){
 		onDblClickRow:function(rowIndex,rowData){
 			if(doble_klik==true){
 				switch(modnya){
+					case "list_produk_kasir":
+						$.post(host+'trx-penjualan', {'editstatus':'add', 'cl_meja_id':par1, 'tbl_produk_id':rowData.id}, function(resp){
+							if(resp == 1){
+								$('#pes_kasir').datagrid('reload');
+								$.post(host+'total-pesanan', { 'id_meja':par1 }, function(resp){
+									var parsing = $.parseJSON(resp);
+									$('#total_qty').val(parsing.tot_qty);
+									$('#total_hrg').val(NumberFormat(parsing.tot_harga));
+								});
+							}else{
+								$.messager.alert('Error','Error System','error');
+							}
+						});
+					break;
 				}
 			}
 		},
 		toolbar: '#toolbar_'+modnya,
 	});
-	
+}
+
+function kumpulAction(type, p1, p2, p3){
+	switch(type){
+		case "hapus-item":
+			var row = $('#pes_kasir').datagrid('getSelected');
+			if(row){
+				$.post(host+'hapus-item', { 'id':row.id, 'editstatus':'edit', 'id_meja':p1, 'tbl_produk_id':row.tbl_produk_id }, function(resp){
+					if(resp == 1){
+						$('#pes_kasir').datagrid('reload');
+						$.post(host+'total-pesanan', { 'id_meja':p1 }, function(resp){
+							var parsing = $.parseJSON(resp);
+							$('#total_qty').val(parsing.tot_qty);
+							$('#total_hrg').val(NumberFormat(parsing.tot_harga));
+						});
+					}else{
+						$.messager.alert('Error','Error System','error');
+					}
+				});
+			}else{
+				$.messager.alert('Error','Pilih Data List Pesanan!','error');
+			}
+		break;
+		case "selesai-transaksi":
+			loadingna();
+			$.post(host+'selesai-transaksi', { 'id_meja':p1, 'nomor_meja':p2 }, function(resp){
+				winLoadingClose();
+				windowForm2(resp, 'Pembayaran Transaksi', 500, 600);
+			});
+		break;
+		case "kalkulasi":
+			console.log(parseInt(jml_uang));
+			
+			var tot_byr = $('#tot_byr_bnr').val();
+			
+			if($('#jumlah_uang_'+p2).val()){
+				var jml_uang = $('#jumlah_uang_'+p2).val();
+			}else{
+				var jml_uang = 0;
+			}
+			
+			var uang_trm = (parseInt(p1) + parseInt(jml_uang));
+			var uang_kmb = (parseInt(uang_trm) - parseInt(tot_byr));
+			
+			$('#jumlah_uang_'+p2).val(uang_trm);
+			$('#jml_uang_'+p2).val(NumberFormat(uang_trm));
+			$('#jumlah_kembalian_'+p2).val(uang_kmb);
+			$('#uang_kembalian_'+p2).val(NumberFormat(uang_kmb));
+			
+			return false;
+		break;
+		case "reset_jmluang_kembalian":
+			$('#jumlah_uang_'+p1).val('');
+			$('#jml_uang_'+p1).val('');
+			$('#jumlah_kembalian_'+p1).val('');
+			$('#uang_kembalian_'+p1).val('');
+		break;
+		case "tutup-transaksi":
+			submit_form('form_pembayaran_transaksi',function(r){
+				loadingna();
+				if(r==1){
+					$.messager.alert('JResto Soft',"Data Tersimpan",'info');
+					loadUrl(host+'kasir');
+					winLoadingClose();
+				}else{
+					$.messager.alert('JResto Soft', "Gagal", 'error');
+					console.log(r);
+					winLoadingClose();
+				}
+				closeWindow2();
+			});
+		break;
+	}
 }
 
 function postAll(type, dom, p1, p2, p3){
@@ -378,21 +509,20 @@ function postAll(type, dom, p1, p2, p3){
 			param['id_meja'] = p1;
 			param['status_meja'] = p2;
 			param['nomor_meja'] = p3;
-			urlnya = host+'index.php/detail-meja';
+			urlnya = host+'detail-meja';
 		break;
 		case "set_aktif_meja":
 			param['id'] = p1;
 			param['editstatus'] = 'edit';
 			param['status_meja'] = 'N';
-			$.post(host+'index.php/set-meja-aktif', param, function(r){
+			$.post(host+'set-meja-aktif', param, function(r){
 				if(r == 1){
 					$.messager.alert('Info','Meja Aktif','info');
-					postAll('detail-meja', 'mainContainer', p1, 'N');
+					postAll('detail-meja', 'mainContainer', p1, 'N', p2);
 				}else{
 					$.messager.alert('Error','Error','error');
 				}
 			});
-			
 			return false;
 		break;
 	}
@@ -401,8 +531,8 @@ function postAll(type, dom, p1, p2, p3){
 	$.post(urlnya, param, function(r){
 		$('#'+dom).removeClass('loading').html(r);
 	});
-	
 }
+
 function NumberFormat(value) {
 	
     var jml= new String(value);
