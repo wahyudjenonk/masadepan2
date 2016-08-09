@@ -44,26 +44,42 @@
 		
 		{if $crud|default:'' eq 'true'}
 			{if $hapus eq 'true'}
+				{*
 				<a href="javascript:void(0)" style='float:right;' class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="genform('delete', '{$modul|default:''}','');">
 					<span class="l-btn-left">
 						<span class="l-btn-text icon-remove l-btn-icon-left">Hapus</span>
 					</span>
-				</a>	
+				</a>
+				*}
+				
+				<button style='float:right;' class='tombol-menu-awal' href='javascript:void(0);' onClick="genform('delete', '{$modul|default:''}','');" >
+					<img src='{$host}__assets/images/delete.png' width='20px' height='20px'> Hapus
+				</button>
 			{/if}
 			{if $edit eq 'true'}
+				{*
 				<a href="javascript:void(0)" style='float:right;' class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="genform('edit', '{$modul|default:''}');">
 					<span class="l-btn-left">
 						<span class="l-btn-text icon-edit l-btn-icon-left">Edit</span>
 					</span>
 				</a>
+				*}
+				<button style='float:right;' class='tombol-menu-awal' href='javascript:void(0);' onClick="genform('edit', '{$modul|default:''}','');" >
+					<img src='{$host}__assets/images/edit.png' width='20px' height='20px'> Edit
+				</button>
 				&nbsp;
 			{/if}
 			{if $tambah eq 'true'}
+				{*
 				<a href="javascript:void(0)" style='float:right;' class="l-btn l-btn-small l-btn-plain" group="" id="" onClick="genform('add', '{$modul|default:''}');">
 					<span class="l-btn-left ">
 						<span class="l-btn-text icon-add l-btn-icon-left">Tambah</span>
 					</span>
 				</a>
+				*}
+				<button style='float:right;' class='tombol-menu-awal' href='javascript:void(0);' onClick="genform('add', '{$modul|default:''}','');" >
+					<img src='{$host}__assets/images/add.png' width='20px' height='20px'> Tambah
+				</button>
 				&nbsp;
 			{/if}
 		{/if}

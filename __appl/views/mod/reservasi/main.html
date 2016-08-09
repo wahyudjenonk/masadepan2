@@ -3,17 +3,17 @@
 		<div class="chute chute-center text-center">
 			<div class="row mb40">
 				<div class="col-md-12">
+
 					<div style='width:100%;height:78%;'>
-						<div id='tab-pengaturan'></div>
+						{include file='tmp/grid.html' tipe_grid='list_reservasi' divnya='div_reservasi' tinggi_grid='(getClientHeight()-150)' tinggi_toolbar='30px' crud="true" tambah="true" edit="true" hapus="true" modul="reservasi" tinggi_toolbar='50px'}
 					</div>
+				
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
 <script>
-	var tab_array=[
-		'Main Setting', 'Master Produk', 'Kategori Produk', 'Manajemen Meja'
-	];
-	genTab( '#tab-pengaturan', 'pengaturan', '', tab_array, 'undefined', '', '', getClientHeight()-100, getClientHeight()-140 );
+	
 </script>
